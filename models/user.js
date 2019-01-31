@@ -35,7 +35,6 @@ userSchema.set('toJSON', {
   }),
 });
 
-// TODO: MAKE SURE PROMISE IS WORKING
 userSchema.methods.isAuthenticated = function (password) {
   return bcrypt.compare(password, this.password);
 };
@@ -46,5 +45,4 @@ userSchema.pre('save', async function(next){
 });
 
 
-// Exporting the User model
 module.exports = mongoose.model('User', userSchema);

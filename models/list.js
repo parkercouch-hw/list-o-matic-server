@@ -6,7 +6,7 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  poster: {
+  posterId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
@@ -33,5 +33,4 @@ var listSchema = new mongoose.Schema({
   items: [itemSchema],
 });
 
-// Exporting the User model
 module.exports = mongoose.model('List', listSchema);

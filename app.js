@@ -53,6 +53,7 @@ app.use('/lists',
     path: [
       // TODO: Remove after testing
       { url: '/lists/new', methods: ['GET'] }, 
+      { url: '/lists', methods: ['POST'] }, 
     ],
   }),
   listsRouter,

@@ -27,7 +27,7 @@ router.post('/login', async (req, res, next) => {
 
     return res.send({ token });
   } catch (error) {
-    return next(new serverError(401, 'Database Error', error));
+    return next(new serverError(403, 'Database Error', error));
   }
 });
 
