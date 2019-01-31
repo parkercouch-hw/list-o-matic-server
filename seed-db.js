@@ -19,6 +19,7 @@ async function addData() {
     });
 
     const shoppingListKey = await nanoid();
+    const otherListKey = await nanoid();
 
     const shoppingList = await db.List.create({
       name: 'Shopping List',
@@ -38,12 +39,38 @@ async function addData() {
       ],
     });
 
+    const otherList = await db.List.create({
+      name: 'Other List',
+      creatorId: otherUser._id,
+      key: otherListKey,
+      items: [
+        {
+          content: 'This is something',
+          posterId: creator._id,
+          completed: false,
+        },
+        {
+          content: 'Something else',
+          posterId: otherUser._id,
+          completed: true,
+        },
+      ],
+    });
+
     await db.User.findByIdAndUpdate(creator._id, {
       lists: [shoppingList._id],
     });
 
     await db.User.findByIdAndUpdate(otherUser._id, {
       lists: [shoppingList._id],
+    });
+
+    await db.User.findByIdAndUpdate(creator._id, {
+      lists: [otherList._id],
+    });
+
+    await db.User.findByIdAndUpdate(otherUser._id, {
+      lists: [otherList._id],
     });
 
     console.log('Added!');

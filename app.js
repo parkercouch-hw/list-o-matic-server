@@ -52,7 +52,7 @@ app.use('/lists',
   }).unless({
     path: [
       // TODO: Remove after testing
-      { url: '/lists/new', methods: ['GET'] }, 
+      { url: '/lists/new', methods: ['POST'] }, 
       { url: '/lists', methods: ['POST'] }, 
     ],
   }),
