@@ -11,6 +11,7 @@ const expressJwt = require('express-jwt');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const listsRouter = require('./routes/lists');
 
 const app = express();
 
@@ -43,6 +44,18 @@ app.use('/auth',
     ],
   }),
   authRouter,
+);
+app.use('/lists', 
+  expressJwt({
+    secret: process.env.JWT_SECRET,
+    getToken: fromRequest,
+  }).unless({
+    path: [
+      // TODO: Remove after testing
+      { url: '/lists/new', methods: ['GET'] }, 
+    ],
+  }),
+  listsRouter,
 );
 
 
