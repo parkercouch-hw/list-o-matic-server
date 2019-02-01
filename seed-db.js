@@ -66,11 +66,11 @@ async function addData() {
     });
 
     await db.User.findByIdAndUpdate(creator._id, {
-      lists: [otherList._id],
+      $push: { lists: otherList._id },
     });
 
     await db.User.findByIdAndUpdate(otherUser._id, {
-      lists: [otherList._id],
+      $push: { lists: otherList._id },
     });
 
     console.log('Added!');

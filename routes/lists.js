@@ -35,9 +35,9 @@ router.post('/new', async (req, res, next) => {
 /* POST /lists -- find all user's lists */
 router.post('/', async (req, res, next) => {
   try {
-    const userLists = await db.List.find({ creatorId: req.body.userId });
+    const usersLists = await db.User.findById(req.body.userId).populate('lists');
 
-    return res.send(userLists);
+    return res.send(usersLists.lists);
   } catch (error) {
     return next(new serverError(403, 'Database Error', error));
   }
