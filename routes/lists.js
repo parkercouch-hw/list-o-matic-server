@@ -13,20 +13,43 @@ router.post('/new', async (req, res, next) => {
   try {
     const listKey = await nanoid();
 
-    const newList = db.List.create({
+    const newList = await db.List.create({
       name: req.body.name,
       key: listKey,
       creatorId: req.body.userId,
       items: [],
     });
 
-    db.User.updateOne({
+    await db.User.updateOne({
       _id: req.body.userId,
     },{
       $push: {"lists": newList._id},
     });
 
     return res.send({ listKey });
+  } catch (error) {
+    return next(new serverError(403, 'Database Error', error));
+  }
+});
+
+/* POST /lists/join -- add list to user's lists */
+router.post('/join', async(req, res, next) => {
+  try {
+    const list = await db.List.findOne({
+      key: req.body.key,
+    });
+
+    if (!list) {
+      return next(new serverError(404, 'No list found', error));
+    }
+
+    await db.User.updateOne({
+      _id: req.body.userId,
+    },{
+      $push: {"lists": list._id},
+    });
+
+    return res.send({ list });
   } catch (error) {
     return next(new serverError(403, 'Database Error', error));
   }
