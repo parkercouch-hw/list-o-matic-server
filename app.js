@@ -49,12 +49,6 @@ app.use('/lists',
   expressJwt({
     secret: process.env.JWT_SECRET,
     getToken: fromRequest,
-  }).unless({
-    path: [
-      // TODO: Remove after testing
-      { url: '/lists/new', methods: ['POST'] }, 
-      { url: '/lists', methods: ['POST'] }, 
-    ],
   }),
   listsRouter,
 );
