@@ -66,4 +66,26 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+/* POST /lists -- find all user's lists */
+router.post('/addItem', async (req, res, next) => {
+  const newItem = {
+    content: req.body.content,
+    posterId: req.body.userId,
+    completed: false,
+  };
+
+  try {
+
+    await db.List.updateOne({
+      _id: req.body.listId,
+    },{
+      $push: {"items": newItem},
+    });
+
+    return res.send('Added!');
+  } catch (error) {
+    return next(new serverError(403, 'Database Error', error));
+  }
+});
+
 module.exports = router;
