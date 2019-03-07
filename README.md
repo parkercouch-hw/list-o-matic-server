@@ -1,4 +1,9 @@
-# HACK DAY (Server)
+
+# List-O-Matic (Server)
+
+Server for shared list app using Node/Express and MongoDB.
+
+This was started at a half-day hackathon for the WDI program at General Assembly
 
 
 ## ROUTES
